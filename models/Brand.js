@@ -2,49 +2,46 @@ const mongoose = require("mongooose");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
 
-const brandSchema = mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: [true, "Please privide a brand name"],
-    maxLength: 100,
-    unique: true,
-    lowercase: true,
-  },
-  description: String,
-  email: {
-    type: String,
-    validate: [validator.isEmail, "please provide a valid email"],
-    lowercase: true,
-  },
-  website: {
-    type: String,
-    validate: [validator.isURL, "Please privide a valid url"],
-  },
-  location: String,
-  products: [
-    {
-      type: ObjectId,
-      ref: "Product",
+const brandSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: [true, "Please privide a brand name"],
+      lowercase: true,
+      enum: {
+        values: [
+          "dhaka",
+          "chattogram",
+          "rajshahi",
+          "sylhet",
+          "mymensingh",
+          "khulna",
+          "barishal",
+          "rangpur",
+        ],
+        message: "{VALUE} is not a valid name",
+      },
     },
-  ],
-  suppliers: [
-    {
+    description: String,
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
+    },
+    manager: {
       name: String,
       contactNumber: String,
       id: {
-        type: String,
-        ref: "Supplier",
+        type: ObjectId,
+        ref: "User",
       },
     },
-  ],
-  status: {
-    type: String,
-    enum: ["active", "inactive"],
-    default: "active",
   },
-  timestamps: ture,
-});
+  {
+    timestamps: ture,
+  }
+);
 
 const Brand = mongoose.model("Brand", brandSchema);
 

@@ -9,69 +9,62 @@ const productSchema = mongoose.Schema(
       unique: [true, "Name must be unique!"],
       minLength: [3, "Name must be at least 3 characters."],
       maxLength: [100, "Name is too large"],
+      lowercase: true,
     },
+
     description: {
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
-      require: true,
-      min: [0, "Price can't be negative"],
-    },
+
     unit: {
       type: String,
       required: true,
       enum: {
-        values: ["kg", "liter", "pcs"],
-        message: "Unit value can't be {VALUES}, must be kg/liter/pcs",
+        values: ["kg", "liter", "pcs", "bag"],
+        message: "Unit value can't be {VALUES}, must be kg/liter/pcs/bag",
       },
     },
-    quantity: {
-      type: Number,
-      required: true,
-      min: [0, "Quantity can't be negative"],
-      validate: (value) => {
-        const isInteger = Number.isInteger(value);
-        if (isInteger) {
-          return true;
-        } else {
-          return false;
-        }
+
+    imageURLs: [
+      {
+        type: String,
+        required: true,
+        validate: {
+          validator: (value) => {
+            if (Array.isArray(value)) {
+              return false;
+            }
+            let isValid = true;
+            value.forEach((url) => {
+              if (!validator.isURL(url)) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          },
+
+          message: "please provide valid image urls",
+        },
       },
-      message: "Quantity must be an integer",
-    },
-    status: {
+    ],
+
+    category: {
       type: String,
-      require: true,
-      enum: {
-        values: ["in-stock", "out-of-stock", "discontimued"],
-        message: "status can't be {VALUES}",
-      },
+      required: true,
     },
 
-    // createdAt: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-    // updateAt: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-
-    // supplier: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Supplier",
-    // },
-    // categories: [
-    //   {
-    //     name: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //     _id: mongoose.Schema.Types.ObjectId,
-    //   },
-    // ],
+    brand: {
+      name: {
+        type: String,
+        required: true,
+      },
+      id: {
+        type: ObjectId,
+        ref: "Brand",
+        required: true,
+      },
+    },
   },
   {
     timestamps: true,
@@ -82,25 +75,11 @@ const productSchema = mongoose.Schema(
 
 productSchema.pre("save", function (next) {
   // this ->
-
-  // console.log("Before saving data");
   if (this.quantity == 0) {
     this.status = "out-of-stock";
   }
   next();
 });
-
-// productSchema.post("save", function (doc, next) {
-//   console.log("After saving data");
-
-//   next();
-// });
-
-productSchema.methods.logger = function () {
-  console.log(`Data saved for ${this.name}`);
-};
-
-// SCHEMA -> MODEL -> QUERY
 
 const Product = mongoose.model("Product", productSchema);
 
