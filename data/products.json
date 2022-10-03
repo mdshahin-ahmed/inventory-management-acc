@@ -53,7 +53,7 @@
     "category": "Rice",
     "brand": {
       "name": "Fresh",
-      "id": "..."
+      "id": "632dbbc740fbb9f869c6c122"
     }
   },
 
@@ -77,7 +77,7 @@
     "imageURLs": [
       "https://chaldn.com/_mpimage/fresh-fortified-soyabean-oil-5-ltr?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D93160&q=best&v=1&m=400&webp=1"
     ],
-    "unit": "litre",
+    "unit": "liter",
     "category": "Oil",
     "brand": {
       "name": "Fresh",
