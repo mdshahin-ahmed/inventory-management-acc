@@ -7,42 +7,35 @@ const storeSchema = mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      required: [true, "Please privide a store name"],
-      maxLength: 100,
-      unique: true,
+      required: [true, "Please privide a brand name"],
       lowercase: true,
+      enum: {
+        values: [
+          "dhaka",
+          "chattogram",
+          "rajshahi",
+          "sylhet",
+          "mymensingh",
+          "khulna",
+          "barishal",
+          "rangpur",
+        ],
+        message: "{VALUE} is not a valid name",
+      },
     },
     description: String,
-    email: {
-      type: String,
-      validate: [validator.isEmail, "please provide a valid email"],
-      lowercase: true,
-    },
-    website: {
-      type: String,
-      validate: [validator.isURL, "Please privide a valid url"],
-    },
-    location: String,
-    products: [
-      {
-        type: ObjectId,
-        ref: "Product",
-      },
-    ],
-    suppliers: [
-      {
-        name: String,
-        contactNumber: String,
-        id: {
-          type: String,
-          ref: "Supplier",
-        },
-      },
-    ],
     status: {
       type: String,
       enum: ["active", "inactive"],
       default: "active",
+    },
+    manager: {
+      name: String,
+      contactNumber: String,
+      id: {
+        type: ObjectId,
+        ref: "User",
+      },
     },
   },
   {

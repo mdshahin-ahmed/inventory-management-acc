@@ -7,13 +7,15 @@ app.use(express.json());
 app.use(cors());
 
 // routes
-const productRote = require("./routs/product.route");
+const productRoute = require("./routs/product.route");
+const brandRoute = require("./routs/brand.route");
 
 app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
 });
 
 // posting to detabase
-app.use("/api/v1/product", productRote);
+app.use("/api/v1/product", productRoute);
+app.use("/api/v1/brand", brandRoute);
 
 module.exports = app;

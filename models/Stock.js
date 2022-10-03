@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
-const productSchema = mongoose.Schema(
+const stockSchema = mongoose.Schema(
   {
+    productId: {
+      type: ObjectId,
+      required: true,
+      ref: "Product",
+    },
     name: {
       type: String,
       required: [true, "Please privide a name for this product."],
@@ -50,6 +55,18 @@ const productSchema = mongoose.Schema(
       },
     ],
 
+    price: {
+      type: Number,
+      required: true,
+      min: [0, "Product price can't be negative"],
+    },
+
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, "Product quantity can't be negative"],
+    },
+
     category: {
       type: String,
       required: true,
@@ -66,6 +83,52 @@ const productSchema = mongoose.Schema(
         required: true,
       },
     },
+    status: {
+      type: String,
+      required: true,
+      enum: {
+        values: ["in-stock", "out-of-stock", "discontinued"],
+        message: "status can't be {VALUE}",
+      },
+    },
+
+    store: {
+      name: {
+        type: String,
+        trim: true,
+        required: [true, "Please privide a brand name"],
+        lowercase: true,
+        enum: {
+          values: [
+            "dhaka",
+            "chattogram",
+            "rajshahi",
+            "sylhet",
+            "mymensingh",
+            "khulna",
+            "barishal",
+            "rangpur",
+          ],
+          message: "{VALUE} is not a valid name",
+        },
+      },
+      id: {
+        type: ObjectId,
+        required: true,
+        ref: "Store",
+      },
+    },
+    suppliedBy: {
+      name: {
+        type: String,
+        trim: true,
+        required: [true, "Please privide a supplier name"],
+      },
+      id: {
+        type: ObjectId,
+        ref: "Supplier",
+      },
+    },
   },
   {
     timestamps: true,
@@ -74,7 +137,7 @@ const productSchema = mongoose.Schema(
 
 // mongoose middlewares for saving data: pre / post
 
-productSchema.pre("save", function (next) {
+stockSchema.pre("save", function (next) {
   // this ->
   if (this.quantity == 0) {
     this.status = "out-of-stock";
@@ -82,6 +145,6 @@ productSchema.pre("save", function (next) {
   next();
 });
 
-const Product = mongoose.model("Product", productSchema);
+const Stock = mongoose.model("Stock", stockSchema);
 
-module.exports = Product;
+module.exports = Stock;
