@@ -10,7 +10,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633b145e5d84972b2c9358fa"
     }
   },
   {
@@ -24,7 +24,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633b145e5d84972b2c9358fa"
     }
   },
 
@@ -39,7 +39,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633b145e5d84972b2c9358fa"
     }
   },
 
@@ -67,7 +67,7 @@
     "category": "Rice",
     "brand": {
       "name": "ACI",
-      "id": "..."
+      "id": "632dbbc740fbb9f869c6c121"
     }
   },
 
@@ -81,7 +81,7 @@
     "category": "Oil",
     "brand": {
       "name": "Fresh",
-      "id": "..."
+      "id": "632dbbc740fbb9f869c6c122"
     }
   },
   {
@@ -94,7 +94,7 @@
     "category": "Oil",
     "brand": {
       "name": "Rupchanda",
-      "id": "..."
+      "id": "632dbbc740fbb9f869c6c123"
     }
   },
 
@@ -108,7 +108,7 @@
     "category": "Sugar",
     "brand": {
       "name": "Fresh",
-      "id": "..."
+      "id": "632dbbc740fbb9f869c6c122"
     }
   }
 ]

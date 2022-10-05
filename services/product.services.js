@@ -22,7 +22,6 @@ exports.createProductServices = async (data) => {
     { _id: brand.id },
     { $push: { products: prodictId } }
   );
-  console.log(res.nModified);
 
   return product;
 };
@@ -52,7 +51,7 @@ exports.bulkUpdateProductService = async (data) => {
     products.push(Product.updateOne({ _id: product.id }, product.data));
   });
   const result = await Promise.all(products);
-  console.log(result);
+
   return result;
 };
 

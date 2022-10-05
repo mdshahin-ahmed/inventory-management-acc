@@ -9,6 +9,10 @@ app.use(cors());
 // routes
 const productRoute = require("./routs/product.route");
 const brandRoute = require("./routs/brand.route");
+const categoryRoute = require("./routs/category.route");
+const storeRoute = require("./routs/store.route");
+const supplierRoute = require("./routs/supplier.route");
+const stockRoute = require("./routs/stock.route");
 
 app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
@@ -17,5 +21,9 @@ app.get("/", (req, res) => {
 // posting to detabase
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/brand", brandRoute);
+app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/store", storeRoute);
+app.use("/api/v1/supplier", supplierRoute);
+app.use("/api/v1/stock", stockRoute);
 
 module.exports = app;

@@ -1,5 +1,5 @@
 const monggose = require("mongoose");
-const validateor = require("validator");
+const validator = require("validator");
 const { ObjectId } = monggose.Schema.Types;
 
 const categorySchema = monggose.Schema(

@@ -2,7 +2,7 @@ const {
   getStoresService,
   createStoreService,
   getStoreByIdService,
-} = require("../services/store.service");
+} = require("../services/store.services");
 
 exports.getStores = async (req, res) => {
   try {
