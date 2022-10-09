@@ -29,3 +29,4 @@ app.use("/api/v1/stock", stockRoute);
 app.use("/api/v1/user", userRoute);
 
 module.exports = app;
+

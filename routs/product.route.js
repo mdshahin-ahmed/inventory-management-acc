@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const productControler = require("../controlars/product.controlar");
+const authorization = require("../middleware/authorization");
 const uploader = require("../middleware/uploader");
+const verifyToken = require("../middleware/verifyToken");
 
 router.post(
   "/file-upload",
   uploader.array("image"),
   productControler.fileUpload
 );
-
 // <input type="file" name="image" />
 
 // const formData = new formData();
@@ -22,11 +23,15 @@ router.route("/bulk-delete").delete(productControler.bulkDeleteProduct);
 router
   .route("/")
   .get(productControler.getProducts)
-  .post(productControler.createProduct);
+  .post(
+    verifyToken,
+    authorization("admin", "store-manager"),
+    productControler.createProduct
+  );
 // dynamic last
 router
   .route("/:id")
   .patch(productControler.updateProductById)
-  .delete(productControler.deleteProductById);
+  .delete(authorization("admin"), productControler.deleteProductById);
 
 module.exports = router;
